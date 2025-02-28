@@ -1,5 +1,5 @@
 <template>
-  <section class="py-8 bg-black text-white">
+  <section class="py-[60px] bg-black text-white">
     <div class="container mx-auto px-4">
       <div
         class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6"
@@ -12,7 +12,7 @@
         </h2>
         <div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
           <button
-            class="px-3 py-1 sm:px-4 sm:py-2 bg-red-500 text-white rounded-full text-sm sm:text-base"
+            class="px-3 py-1 sm:px-4 sm:py-2 bg-[#FF0000] text-white rounded-full text-sm sm:text-base"
           >
             Popularity
           </button>
