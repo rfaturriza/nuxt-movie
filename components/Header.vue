@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-white/5">
+  <header :class="headerClass">
     <div class="container mx-auto px-2 md:px-0">
       <div class="flex justify-between items-center h-16">
         <div class="flex">
@@ -15,11 +15,11 @@
           />
         </div>
         <div class="hidden md:block">
-          <div class="ml-4 flex items-center space-x-8">
+          <div class="ml-4 flex space-x-8">
             <div class="relative">
               <button
                 @click="toggleCategoryDropdown"
-                class="flex items-center gap-3 focus:outline-none"
+                class="flex gap-3 focus:outline-none"
               >
                 <Icon name="ic:round-grid-view" size="20px" />CATEGORIES
               </button>
@@ -31,7 +31,7 @@
                   v-for="category in categories"
                   :key="category"
                   href="#"
-                  class="block px-4 py-2 text-sm hover:bg-gray-300 uppercase font-semibold"
+                  class="block py-2 text-sm hover:bg-gray-300 uppercase font-semibold"
                 >
                   {{ category }}
                 </a>
@@ -101,7 +101,9 @@
 </template>
 
 <script setup>
-const mobileMenu = ref(false);
+defineProps({
+  headerClass: { type: String, default: "bg-white/5" },
+});
 const showCategoryDropdown = ref(false);
 
 const categories = [
@@ -137,20 +139,20 @@ const getSuggestions = async (text) => {
   // Example implementation - replace with your API call
   // Using dummy data instead of API call
   if (!text) return [];
-  
+
   const dummyMovies = [
-    { id: 1, title: 'Inception', year: 2010 },
-    { id: 2, title: 'The Dark Knight', year: 2008 },
-    { id: 3, title: 'Interstellar', year: 2014 },
-    { id: 4, title: 'The Matrix', year: 1999 },
-    { id: 5, title: 'Pulp Fiction', year: 1994 }
+    { id: 1, title: "Inception", year: 2010 },
+    { id: 2, title: "The Dark Knight", year: 2008 },
+    { id: 3, title: "Interstellar", year: 2014 },
+    { id: 4, title: "The Matrix", year: 1999 },
+    { id: 5, title: "Pulp Fiction", year: 1994 },
   ];
-  
+
   // Filter movies that match the search text
-  const filteredMovies = dummyMovies.filter(movie => 
+  const filteredMovies = dummyMovies.filter((movie) =>
     movie.title.toLowerCase().includes(text.toLowerCase())
   );
-  
+
   return filteredMovies;
 };
 
@@ -159,10 +161,30 @@ const performSearch = async (searchText) => {
   // Using dummy data instead of API call
   console.log(`Searching for: ${searchText}`);
   searchResults.value = [
-    { id: 1, title: 'Inception', year: 2010, poster: '/images/placeholder.jpg' },
-    { id: 2, title: 'The Dark Knight', year: 2008, poster: '/images/placeholder.jpg' },
-    { id: 3, title: 'Interstellar', year: 2014, poster: '/images/placeholder.jpg' },
-    { id: 4, title: `Result for "${searchText}"`, year: 2023, poster: '/images/placeholder.jpg' }
+    {
+      id: 1,
+      title: "Inception",
+      year: 2010,
+      poster: "/images/placeholder.jpg",
+    },
+    {
+      id: 2,
+      title: "The Dark Knight",
+      year: 2008,
+      poster: "/images/placeholder.jpg",
+    },
+    {
+      id: 3,
+      title: "Interstellar",
+      year: 2014,
+      poster: "/images/placeholder.jpg",
+    },
+    {
+      id: 4,
+      title: `Result for "${searchText}"`,
+      year: 2023,
+      poster: "/images/placeholder.jpg",
+    },
   ];
 };
 
