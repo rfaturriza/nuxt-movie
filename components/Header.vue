@@ -3,7 +3,9 @@
     <div class="container mx-auto px-2 md:px-0">
       <div class="flex justify-between items-center h-16">
         <div class="flex">
-          <img class="h-8 w-auto" src="/images/logo.svg" alt="logo website" />
+          <NuxtLink to="/">
+            <img class="h-8 w-auto" src="/images/logo.svg" alt="logo website" />
+          </NuxtLink>
         </div>
 
         <div class="hidden md:block flex-1 px-4">
@@ -186,6 +188,11 @@ const performSearch = async (searchText) => {
       poster: "/images/placeholder.jpg",
     },
   ];
+  navigateTo("/search", {
+    query: {
+      q: searchText,
+    },
+  });
 };
 
 // Handle when a suggestion is selected

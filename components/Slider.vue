@@ -9,7 +9,7 @@
         <SliderCard
           v-for="(movie, index) in movies"
           :key="index"
-          v-bind="movie"
+          :movie="movie"
           :class="getSlideClass(index)"
           class="w-1/3 flex-shrink-0"
         />
@@ -32,19 +32,12 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from "vue";
-
-const props = defineProps({
-  movies: {
-    type: Array,
-    required: true,
-  },
-});
+<script setup lang="ts">
+const props = defineProps<{ movies: Movie[] }>();
 
 const currentIndex = ref(0);
 
-const goToSlide = (index) => {
+const goToSlide = (index: number) => {
   currentIndex.value = index;
 };
 
@@ -58,8 +51,8 @@ onMounted(() => {
 });
 
 // Determine slide classes
-const getSlideClass = (index) => {
-  if (index === currentIndex.value) {
+const getSlideClass = (index: number) => {
+  if (index === currentIndex.value + 1) {
     return "active-slide";
   } else if (index < currentIndex.value) {
     return "left-slide";

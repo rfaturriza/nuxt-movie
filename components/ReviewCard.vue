@@ -30,13 +30,10 @@
     <div class="flex-1">
       <!-- Review Text -->
       <p class="mt-2 text-sm text-gray-700 leading-relaxed italic">
-        {{
-          reviewText.length > maxLength
-            ? reviewText.slice(0, maxLength) + "..."
-            : reviewText
-        }}
+        <span :class="`${showFullReview ? 'line-clamp-none' : 'line-clamp-6'}`">
+          {{ reviewText }}
+        </span>
         <span
-          v-if="reviewText.length > maxLength"
           class="text-red-500 cursor-pointer underline italic"
           @click="toggleFullReview"
         >
@@ -44,18 +41,10 @@
         </span>
       </p>
     </div>
-
-    <!-- Recommendation Movies -->
-    <section class="container mx-auto my-10">
-      <div class="text-white uppercase">Recommended Movies:</div>
-    </section>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-// Props for dynamic data
 defineProps({
   reviewer: { type: String, required: true },
   date: { type: String, required: true },
@@ -64,9 +53,7 @@ defineProps({
   rating: { type: Number, required: true },
 });
 
-// Show full review toggle
 const showFullReview = ref(false);
-const maxLength = 300; // Limit text preview
 
 const toggleFullReview = () => {
   showFullReview.value = !showFullReview.value;

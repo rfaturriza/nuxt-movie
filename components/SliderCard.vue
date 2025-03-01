@@ -1,8 +1,8 @@
 <template>
   <div class="flex items-center py-[50px]">
     <img
-      :src="poster"
-      :alt="title"
+      :src="`${baseImageUrl}${movie.poster_path}`"
+      :alt="movie.title"
       class="object-cover"
       height="360px"
       width="240px"
@@ -12,42 +12,24 @@
     >
       <div class="flex items-center space-x-1">
         <Icon name="ic:round-star" size="16px" class="text-yellow-400" />
-        <p class="text-white font-bold">{{ rating }}</p>
+        <p class="text-white font-bold">{{ movie.vote_average }}</p>
       </div>
       <div class="flex flex-col space-y-2">
-        <h2 class="text-2xl text-white">{{ title }}</h2>
-        <p class="text-l text-gray-400">{{ year }} • {{ genre }}</p>
-        <p class="text-sm text-white">{{ description }}</p>
+        <h2 class="text-2xl text-white">{{ movie.title }}</h2>
+        <p class="text-l text-gray-400">
+          {{ movie.release_date }} • {{ movie.genre_ids }}
+        </p>
+        <p class="text-sm text-white line-clamp-8">{{ movie.overview }}</p>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-defineProps({
-  poster: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  rating: {
-    type: Number,
-    required: true,
-  },
-  year: {
-    type: String,
-    required: true,
-  },
-  genre: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-});
+<script setup lang="ts">
+defineProps<{
+  movie: Movie;
+}>();
+
+const config = useRuntimeConfig();
+const baseImageUrl = config.public.BASE_IMAGE_URL;
 </script>
