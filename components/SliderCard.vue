@@ -17,7 +17,8 @@
       <div class="flex flex-col space-y-2">
         <h2 class="text-2xl text-white">{{ movie.title }}</h2>
         <p class="text-l text-gray-400">
-          {{ movie.release_date }} • {{ movie.genre_ids }}
+          {{ movie.release_date }} •
+          {{ res?.genres.find((g) => g.id === movie.genre_ids[0])?.name }}
         </p>
         <p class="text-sm text-white line-clamp-8">{{ movie.overview }}</p>
       </div>
@@ -32,4 +33,6 @@ defineProps<{
 
 const config = useRuntimeConfig();
 const baseImageUrl = config.public.BASE_IMAGE_URL;
+
+const { data: res } = useGenres();
 </script>

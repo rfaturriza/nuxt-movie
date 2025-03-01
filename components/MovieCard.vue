@@ -15,7 +15,9 @@
         <Icon name="ic:round-star" size="26px" class="text-yellow-400" />
         {{ movie.vote_average.toFixed(1) }}
       </div>
-      <div class="text-white mb-4 text-center">{{ movie.genre_ids }}</div>
+      <div class="text-white mb-4 text-center">
+        {{ res?.genres.find((g) => g.id === movie.genre_ids[0])?.name }}
+      </div>
       <NuxtLink
         :to="`/detail/${movie.id}`"
         class="bg-red-600 hover:bg-red-700 text-white px-8 py-1 rounded-full transition"
@@ -40,4 +42,5 @@
 defineProps<{ movie: Movie }>();
 const config = useRuntimeConfig();
 const baseImageUrl = config.public.BASE_IMAGE_URL;
+const { data: res } = useGenres();
 </script>

@@ -64,7 +64,7 @@
       <div class="mt-10 mb-2 text-red-500 font-semibold uppercase">
         Overview
       </div>
-      <p class="text-black text-sm max-w-lg line-clamp-6">
+      <p class="text-black text-sm max-w-2xl line-clamp-5">
         {{ detailMovie.overview }}
       </p>
     </div>
