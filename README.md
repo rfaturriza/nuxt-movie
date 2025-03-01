@@ -1,6 +1,29 @@
-# Nuxt Minimal Starter
+# Nuxt Movie
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Explore here [Nuxt Movie](https://nuxt-movie-rfaturriza.vercel.app/) to know more.
+
+## Demo
+
+| Home                                          | Search                                          | Movies                                          | Details                                          |
+| --------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
+| <img src='/screenshots/home.png' width='300'> | <img src='/screenshots/movies.png' width='300'> | <img src='/screenshots/search.png' width='300'> | <img src='/screenshots/details.png' width='300'> |
+
+## Stack
+
+- [Nuxt.js](https://nuxtjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+## API
+
+- [The Movie Database](https://developer.themoviedb.org/docs/getting-started)
+
+## Features
+
+- Home - List of popular movies
+- Movie - Details of a movie
+- Search - Search for movies
+- Pagination - Load more movies
+- Details - Movie details
 
 ## Setup
 
