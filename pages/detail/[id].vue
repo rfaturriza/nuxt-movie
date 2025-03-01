@@ -10,10 +10,10 @@
     />
     <div class="relative pt-[250px]">
       <div
-        class="bg-white absolute top-[70%] bottom-0 left-0 right-0 z-[-1]"
+        class="bg-white absolute top-[72%] bottom-0 left-0 right-0 z-[-1]"
       ></div>
       <div
-        class="bg-[#00000080] absolute top-[55%] bottom-0 left-0 right-0 z-[-2]"
+        class="bg-[#00000080] absolute top-[58%] bottom-0 left-0 right-0 z-[-2]"
       ></div>
       <div class="flex justify-center">
         <MovieOverview v-if="movie" :detailMovie="movie" />

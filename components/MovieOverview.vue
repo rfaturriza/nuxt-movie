@@ -4,7 +4,7 @@
     <NuxtImg
       :src="`${baseImageUrl}${detailMovie.poster_path}`"
       :alt="detailMovie.title"
-      class="w-[220px] h-auto shadow-lg"
+      class="w-[220px] h-[330px] object-cover"
     />
 
     <!-- Movie Details -->
@@ -53,7 +53,7 @@
           <span class="text-gray-400">PRODUCTION</span><br />
           <span class="font-bold">{{
             detailMovie.production_companies
-              .slice(0, 2)
+              .slice(0, 1)
               .map((company) => company.name)
               .join(", ")
           }}</span>
