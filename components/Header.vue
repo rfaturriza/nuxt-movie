@@ -37,7 +37,7 @@
                   v-for="category in categories"
                   :key="category"
                   to="#"
-                  class="block py-2 text-sm hover:bg-gray-300 uppercase font-semibold"
+                  class="block p-2 text-sm hover:bg-gray-300 uppercase font-semibold"
                 >
                   {{ category }}
                 </NuxtLink>
