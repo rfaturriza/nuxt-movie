@@ -3,19 +3,25 @@
     <!-- icon prefix -->
     <div class="flex items-center px-3 py-1">
       <Icon name="ic:baseline-movie" class="h-8 w-8 text-[#FFFFFF2B]" />
-      <input
-        type="text"
-        class="w-full bg-transparent focus:outline-none px-2 py-1"
-        placeholder="Find movie"
-        v-model="searchText"
-        @input="handleInput"
-      />
-      <!-- icon button suffix search -->
-      <Icon
-        name="ic:baseline-search"
-        class="h-5 w-5 text-white cursor-pointer"
-        @click="$emit('search', searchText)"
-      />
+      <form
+        @submit.prevent="$emit('search', searchText)"
+        class="flex flex-1 items-center"
+      >
+        <input
+          type="text"
+          class="w-full bg-transparent focus:outline-none px-2 py-1"
+          placeholder="Find movie"
+          v-model="searchText"
+          @input="handleInput"
+        />
+        <!-- icon button suffix search -->
+        <button type="submit">
+          <Icon
+            name="ic:baseline-search"
+            class="h-5 w-5 text-white cursor-pointer"
+          />
+        </button>
+      </form>
     </div>
 
     <!-- Suggestions dropdown -->
@@ -24,24 +30,18 @@
       class="absolute w-full bg-[#000000E5] rounded-md mt-1 max-h-60 overflow-y-auto z-10"
     >
       <div
-        v-for="(suggestion, index) in suggestions"
+        v-for="(movie, index) in suggestions"
         :key="index"
         class="px-4 py-2 hover:bg-gray-700 cursor-pointer"
-        @click="selectSuggestion(suggestion)"
+        @click="selectSuggestion(movie)"
       >
-        <span
-          v-if="suggestion.title"
-          v-html="highlightMatch(suggestion.title, searchText)"
-        ></span>
-        <span v-else v-html="highlightMatch(suggestion, searchText)"></span>
+        <span v-html="highlightMatch(movie.title, searchText)"></span>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, watch } from "vue";
-
+<script setup lang="ts">
 const props = defineProps({
   modelValue: {
     type: String,
@@ -60,9 +60,9 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue", "search", "select"]);
 
 const searchText = ref(props.modelValue);
-const suggestions = ref([]);
+const suggestions = ref<Movie[]>([]);
 const showSuggestions = ref(false);
-let debounceTimeout = null;
+let debounceTimeout: NodeJS.Timeout | undefined = undefined;
 
 watch(
   () => props.modelValue,
@@ -75,7 +75,7 @@ watch(searchText, (newValue) => {
   emit("update:modelValue", newValue);
 });
 
-const highlightMatch = (text, search) => {
+const highlightMatch = (text: string, search: string) => {
   if (!search) {
     return text;
   }
@@ -108,15 +108,16 @@ const handleInput = () => {
   }, props.debounceTime);
 };
 
-const selectSuggestion = (suggestion) => {
-  searchText.value = suggestion.title || suggestion;
+const selectSuggestion = (suggestion: Movie) => {
+  console.log("suggestion:", suggestion);
+  searchText.value = suggestion.title;
   showSuggestions.value = false;
   emit("select", suggestion);
 };
 
 // Hide suggestions when clicking outside
-const clickOutside = (event) => {
-  if (!event.target.closest(".search-bar")) {
+const clickOutside = (event: MouseEvent) => {
+  if (!(event.target as Element).closest(".search-bar")) {
     showSuggestions.value = false;
   }
 };

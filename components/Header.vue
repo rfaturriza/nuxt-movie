@@ -4,7 +4,7 @@
       <div class="flex justify-between items-center h-16">
         <div class="flex">
           <NuxtLink to="/">
-            <img class="h-8 w-auto" src="/images/logo.svg" alt="logo website" />
+            <NuxtImg class="h-8 w-auto" src="/images/logo.svg" alt="logo website" />
           </NuxtLink>
         </div>
 
@@ -102,11 +102,12 @@
   </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineProps({
   headerClass: { type: String, default: "bg-white/5" },
 });
 const showCategoryDropdown = ref(false);
+const mobileMenu = ref(false);
 
 const categories = [
   "Action",
@@ -134,70 +135,31 @@ const toggleCategoryDropdown = () => {
   showCategoryDropdown.value = !showCategoryDropdown.value;
 };
 const query = ref("");
-const searchResults = ref([]);
 
-// Function to fetch suggestions when user types
-const getSuggestions = async (text) => {
-  // Example implementation - replace with your API call
-  // Using dummy data instead of API call
+const { data: suggestions, execute: fetchSuggestions } = useAuthApi<
+  Pagination<Movie>
+>("/search/movie", {
+  params: {
+    query,
+    include_adult: true,
+    page: 1,
+  },
+  immediate: false,
+});
+
+const getSuggestions = async (text: string) => {
   if (!text) return [];
+  query.value = text;
 
-  const dummyMovies = [
-    { id: 1, title: "Inception", year: 2010 },
-    { id: 2, title: "The Dark Knight", year: 2008 },
-    { id: 3, title: "Interstellar", year: 2014 },
-    { id: 4, title: "The Matrix", year: 1999 },
-    { id: 5, title: "Pulp Fiction", year: 1994 },
-  ];
-
-  // Filter movies that match the search text
-  const filteredMovies = dummyMovies.filter((movie) =>
-    movie.title.toLowerCase().includes(text.toLowerCase())
-  );
-
-  return filteredMovies;
+  await fetchSuggestions();
+  return suggestions.value?.results ?? [];
 };
 
-// Handle when search button is clicked
-const performSearch = async (searchText) => {
-  // Using dummy data instead of API call
-  console.log(`Searching for: ${searchText}`);
-  searchResults.value = [
-    {
-      id: 1,
-      title: "Inception",
-      year: 2010,
-      poster: "/images/placeholder.jpg",
-    },
-    {
-      id: 2,
-      title: "The Dark Knight",
-      year: 2008,
-      poster: "/images/placeholder.jpg",
-    },
-    {
-      id: 3,
-      title: "Interstellar",
-      year: 2014,
-      poster: "/images/placeholder.jpg",
-    },
-    {
-      id: 4,
-      title: `Result for "${searchText}"`,
-      year: 2023,
-      poster: "/images/placeholder.jpg",
-    },
-  ];
-  navigateTo("/search", {
-    query: {
-      q: searchText,
-    },
-  });
+const performSearch = async (searchText: string) => {
+  navigateTo(`/search?q=${searchText}`);
 };
 
-// Handle when a suggestion is selected
-const handleSelection = (suggestion) => {
-  query.value = suggestion.title || suggestion;
-  performSearch(query.value);
+const handleSelection = (movie: Movie) => {
+  navigateTo(`/detail/${movie.id}`);
 };
 </script>

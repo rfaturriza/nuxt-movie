@@ -3,7 +3,7 @@
     <div class="flex space-x-4 justify-between">
       <div class="flex items-center space-x-2">
         <!-- Profile Image -->
-        <img
+        <NuxtImg
           :src="profileImage"
           alt="Reviewer Image"
           class="w-10 h-10 rounded-full object-cover bg-gray-300"

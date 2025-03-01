@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center py-[50px]">
-    <img
+    <NuxtImg
       :src="`${baseImageUrl}${movie.poster_path}`"
       :alt="movie.title"
       class="object-cover"

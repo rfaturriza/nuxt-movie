@@ -98,4 +98,9 @@ declare global {
     iso_639_1: string;
     name: string;
   }
+
+  export interface KeyWord {
+    id: number;
+    name: string;
+  }
 }

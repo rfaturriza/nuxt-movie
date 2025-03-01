@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-[200px] flex-shrink-0 group cursor-pointer">
-    <img
+    <NuxtImg
       :src="`${baseImageUrl}${movie.poster_path}`"
       :alt="movie.title"
       class="w-full h-[300px] object-cover"

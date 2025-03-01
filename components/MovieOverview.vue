@@ -1,7 +1,7 @@
 <template>
   <div class="container text-white flex space-x-6 w-full">
     <!-- Movie Poster -->
-    <img
+    <NuxtImg
       :src="`${baseImageUrl}${detailMovie.poster_path}`"
       :alt="detailMovie.title"
       class="w-[220px] h-auto shadow-lg"
@@ -53,6 +53,7 @@
           <span class="text-gray-400">PRODUCTION</span><br />
           <span class="font-bold">{{
             detailMovie.production_companies
+              .slice(0, 2)
               .map((company) => company.name)
               .join(", ")
           }}</span>
