@@ -4,7 +4,11 @@
       <div class="flex justify-between items-center h-16">
         <div class="flex">
           <NuxtLink to="/">
-            <NuxtImg class="h-8 w-auto" src="/images/logo.svg" alt="logo website" />
+            <NuxtImg
+              class="h-8 w-auto"
+              src="/images/logo.svg"
+              alt="logo website"
+            />
           </NuxtLink>
         </div>
 
@@ -29,24 +33,24 @@
                 v-if="showCategoryDropdown"
                 class="absolute z-10 mt-2 w-48 rounded-md bg-white py-2 shadow-lg ring-1 ring-white/10 text-[#1E232B]"
               >
-                <a
+                <NuxtLink
                   v-for="category in categories"
                   :key="category"
-                  href="#"
+                  to="#"
                   class="block py-2 text-sm hover:bg-gray-300 uppercase font-semibold"
                 >
                   {{ category }}
-                </a>
+                </NuxtLink>
               </div>
             </div>
-            <a
+            <NuxtLink
               v-for="navLink in navLinks"
               :key="navLink.name"
-              :href="navLink.url"
+              :to="navLink.url"
               class="text-gray-400 hover:text-gray-500 uppercase"
             >
               {{ navLink.name }}
-            </a>
+            </NuxtLink>
           </div>
         </div>
         <div class="md:hidden">
@@ -80,23 +84,23 @@
           aria-orientation="vertical"
           aria-labelledby="options-menu"
         >
-          <a
+          <NuxtLink
             v-for="category in categories"
             :key="category"
-            href="#"
+            to="#"
             class="block px-3 py-2 text-base font-medium text-gray-200 rounded-md hover:text-gray-200 hover:bg-gray-100"
           >
             {{ category }}
-          </a>
+          </NuxtLink>
         </div>
-        <a
+        <NuxtLink
           v-for="navLink in navLinks"
           :key="navLink.name"
-          :href="navLink.url"
+          :to="navLink.url"
           class="text-white hover:text-gray-500 uppercase"
         >
           {{ navLink.name }}
-        </a>
+        </NuxtLink>
       </div>
     </div>
   </header>
@@ -124,9 +128,9 @@ const categories = [
 ];
 
 const navLinks = [
-  { name: "Movies", url: "#" },
-  { name: "TV Shows", url: "#" },
-  { name: "Login", url: "#" },
+  { name: "Movies", url: "/movies" },
+  { name: "TV Shows", url: "/tv-shows" },
+  { name: "Login", url: "/login" },
 ];
 const toggleMobileMenu = () => {
   mobileMenu.value = !mobileMenu.value;
