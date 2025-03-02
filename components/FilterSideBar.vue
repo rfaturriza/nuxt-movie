@@ -72,19 +72,15 @@ onMounted(() => {
 });
 
 // Genres list with IDs based on TMDB
-const genres = ref([
-  { label: "Action", value: 28 },
-  { label: "Adventure", value: 12 },
-  { label: "Animation", value: 16 },
-  { label: "Comedy", value: 35 },
-  { label: "Crime", value: 80 },
-  { label: "Documentary", value: 99 },
-  { label: "Drama", value: 18 },
-  { label: "Family", value: 10751 },
-  { label: "Fantasy", value: 14 },
-  { label: "History", value: 36 },
-  { label: "Horror", value: 27 },
-]);
+const { data: genreResponse } = useGenres();
+const genres = computed(() => {
+  return (
+    genreResponse.value?.genres?.map((genre) => ({
+      label: genre.name,
+      value: genre.id,
+    })) ?? []
+  );
+});
 
 // Watch for changes in sorting and emit events
 watch(selectedSort, (newValue) => {

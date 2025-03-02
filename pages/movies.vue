@@ -63,14 +63,14 @@ const router = useRouter();
 const currentPage = ref(parseInt(route.query.page as string) || 1);
 const sortBy = ref((route.query.sort_by as string) || "popularity.desc");
 const genres = ref<string[]>(
-  route.query.genres ? (route.query.genres as string).split(",") : []
+  route.query.genres ? (route.query.genres as string).split("|") : []
 );
 
 onMounted(() => {
   if (!route.query.genres) {
     genres.value = [];
   } else {
-    genres.value = (route.query.genres as string).split(",");
+    genres.value = (route.query.genres as string).split("|");
   }
   if (!route.query.sort_by) {
     router.replace({
@@ -101,7 +101,7 @@ const discoverParams = computed(() => ({
   language: "en-US",
   page: currentPage.value,
   sort_by: sortBy.value,
-  with_genres: genres.value.length ? genres.value.join(",") : undefined,
+  with_genres: genres.value.length ? genres.value.join("|") : undefined,
 }));
 
 const pagination = ref<Pagination<Movie>[]>([]);
@@ -138,7 +138,7 @@ watch(
           ...route.query,
           page: 1,
           sort_by: newSort,
-          genres: newGenres.length ? newGenres.join(",") : undefined,
+          genres: newGenres.length ? newGenres.join("|") : undefined,
         },
       });
     } else if (newPage !== parseInt((route.query.page as string) || "1")) {
